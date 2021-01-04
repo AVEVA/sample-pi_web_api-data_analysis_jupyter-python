@@ -5,7 +5,7 @@ trigger:
       - master
   paths:
     include:
-      - '/piwebapi_samples/Data_Analysis'
+      - '/src/'
 
 pr:
   branches:
@@ -13,7 +13,7 @@ pr:
       - master
   paths:
     include:
-      - '/piwebapi_samples/Data_Analysis'
+      - '/src/'
 
 schedules:
   - cron: '0 0 * * 0'
@@ -23,10 +23,17 @@ schedules:
         - master
     always: true
 
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    name: osisoft/OSI-Samples
+    endpoint: osisoft/OSI-Samples
+
 variables:
-  - template: '/miscellaneous/build_templates/variables.yml'
+  - template: '/miscellaneous/build_templates/variables.yml@templates'
   - name: projPath
-    value: '/piwebapi_samples/Data_Analysis/UploadUtility'
+    value: '/src/'
   - name: CredFile
     value: test_config.json
   - name: CredFileLibrary
@@ -35,6 +42,6 @@ variables:
     value: PIWebAPI_Data_Analysis_Upload
 
 jobs:
-  - template: '/miscellaneous/build_templates/analysis.yml'
+  - template: '/miscellaneous/build_templates/analysis.yml@templates'
     parameters:
       language: dotnet
