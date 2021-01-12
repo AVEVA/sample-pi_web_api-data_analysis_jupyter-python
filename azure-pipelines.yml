@@ -71,7 +71,7 @@ jobs:
         inputs:
           sourceFolder: '$(Build.SourcesDirectory)'
           targetFolder: '$(Build.BinariesDirectory)'
-          contents: '**/bin/Debug/netcoreapp3.1/*'
+          contents: '**/bin/Debug/net*/*'
           overWrite: true
           flattenFolders: true
       - task: PublishBuildArtifacts@1
