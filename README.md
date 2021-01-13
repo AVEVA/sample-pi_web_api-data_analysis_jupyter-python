@@ -72,6 +72,8 @@ This sample has been tested on `PI Web API 2018 SP1`, `PI AF Server 2018 SP2` an
 
 ---
 
-For the main PI Web API page [ReadMe](../)
+For the main PI Web API Samples landing page on master [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System/tree/master/docs/PI-Web-API-Docs)
 
-For the main landing page on master [ReadMe](https://github.com/osisoft/OSI-Samples)
+For the main PI System Samples landing page on master [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System)
+
+For the main OSIsoft Samples landing page on master [ReadMe](https://github.com/osisoft/OSI-Samples)
