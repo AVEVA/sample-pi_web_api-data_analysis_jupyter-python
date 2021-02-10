@@ -35,7 +35,7 @@ namespace UploadUtility
             _client.DefaultRequestHeaders.Add("X-Requested-With", "xhr");
         }
 
-        public async Task<JObject> GetAsync(string uri)
+        public async Task<JObject> GetAsync(System.Uri uri)
         {
             HttpResponseMessage response = await _client.GetAsync(uri);
 
@@ -51,7 +51,7 @@ namespace UploadUtility
             return JObject.Parse(content);
         }
 
-        public async Task PostAsync(string uri, string data)
+        public async Task PostAsync(System.Uri uri, string data)
         {
             HttpResponseMessage response = await _client.PostAsync(
                 uri, new StringContent(data, Encoding.UTF8, "application/json"));
@@ -66,7 +66,7 @@ namespace UploadUtility
             }
         }
 
-        public async Task PostXmlAsync(string uri, string data)
+        public async Task PostXmlAsync(System.Uri uri, string data)
         {
             HttpResponseMessage response = await _client.PostAsync(
                 uri, new StringContent(data, Encoding.UTF8, "text/xml"));
@@ -81,7 +81,7 @@ namespace UploadUtility
             }
         }
 
-        public async Task DeleteAsync(string uri)
+        public async Task DeleteAsync(System.Uri uri)
         {
             HttpResponseMessage response = await _client.DeleteAsync(uri);
             Console.WriteLine("DELETE response code " + response.StatusCode);
@@ -94,14 +94,14 @@ namespace UploadUtility
             }
         }
 
-        public JObject GetRequest(string url)
+        public JObject GetRequest(System.Uri url)
         {
             Task<JObject> t = GetAsync(url);
             t.Wait();
             return t.Result;
         }
 
-        public void PostRequest(string url, string data, bool isXML = false)
+        public void PostRequest(System.Uri url, string data, bool isXML = false)
         {
             if (isXML)
             {
@@ -115,7 +115,7 @@ namespace UploadUtility
             }
         }
 
-        public void DeleteRequest(string url)
+        public void DeleteRequest(System.Uri url)
         {
             Task t = DeleteAsync(url);
             t.Wait();

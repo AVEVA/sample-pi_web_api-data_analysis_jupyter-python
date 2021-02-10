@@ -223,6 +223,9 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
+# Jupyter Notebook
+.ipynb_checkpoints
+
 ##############
 ## JavaScript
 # Logs
@@ -325,3 +328,4 @@ appsettings.json
 config.ini
 config.js
 config.properties
+test_config.json
