@@ -1,6 +1,6 @@
 # PI Web API Data Analysis Sample
 
-**Version:** 1.0.7
+**Version:** 1.0.8
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/PI-System/osisoft.sample-pi_web_api-data_analysis-python?repoName=osisoft%2Fsample-pi_web_api-data_analysis-python&branchName=master)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=2665&repoName=osisoft%2Fsample-pi_web_api-data_analysis-python&branchName=master)
 
