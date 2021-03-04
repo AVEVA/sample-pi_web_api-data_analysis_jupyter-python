@@ -2,7 +2,7 @@
 
 **Version:** 1.0.8
 
-[![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/PI-System/osisoft.sample-pi_web_api-data_analysis-python?repoName=osisoft%2Fsample-pi_web_api-data_analysis-python&branchName=master)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=2665&repoName=osisoft%2Fsample-pi_web_api-data_analysis-python&branchName=master)
+[![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/PI-System/osisoft.sample-pi_web_api-data_analysis-python?repoName=osisoft%2Fsample-pi_web_api-data_analysis-python&branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=2665&repoName=osisoft%2Fsample-pi_web_api-data_analysis-python&branchName=main)
 
 The sample code in this folder demonstrates how to utilize the PI Web API to do some basic data analysis using Python Jupyter Notebook. In order to run this sample, you need to have [Python](https://www.python.org/downloads/) installed.
 
@@ -72,8 +72,8 @@ This sample has been tested on `PI Web API 2018 SP1`, `PI AF Server 2018 SP2` an
 
 ---
 
-For the main PI Web API Samples landing page on master [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System/tree/master/docs/PI-Web-API-Docs)
+For the main PI Web API Samples landing page [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System/tree/main/docs/PI-Web-API-Docs)
 
-For the main PI System Samples landing page on master [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System)
+For the main PI System Samples landing page [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System)
 
-For the main OSIsoft Samples landing page on master [ReadMe](https://github.com/osisoft/OSI-Samples)
+For the main OSIsoft Samples landing page [ReadMe](https://github.com/osisoft/OSI-Samples)

@@ -1,5 +1,10 @@
 # Version History
 
+## 1.0.9 / 2021-03-04
+
+- Updated pipeline to reference main branch
+- Merge UploadUtility pipeline into main pipeline
+
 ## 1.0.8 / 2021-02-19
 
 - Updated dependencies
