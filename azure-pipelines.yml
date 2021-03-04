@@ -70,12 +70,14 @@ jobs:
           flattenFolders: true
 
       - task: PublishBuildArtifacts@1
+        displayName: Publish Build Output Files
         inputs:
           PathtoPublish: '$(Build.BinariesDirectory)'
           ArtifactName: 'UploadUtility'
           publishLocation: 'Container'
 
       - task: PowerShell@2
+        displayName: Run UploadUtility
         inputs:
           targetType: 'inline'
           script: '&"$(Build.BinariesDirectory)/UploadUtility.exe" "$(Build.SourcesDirectory)/UploadUtility/Building Example.xml" "$(Build.SourcesDirectory)/UploadUtility/tagdefinition.csv" "$(Build.SourcesDirectory)/UploadUtility/pidata.csv" "$(Build.SourcesDirectory)/test_config.json"'
@@ -122,3 +124,4 @@ jobs:
       - template: '/miscellaneous/build_templates/analysis.yml@templates'
         parameters:
           skipPolaris: true
+          useRequirementsTxt: true
