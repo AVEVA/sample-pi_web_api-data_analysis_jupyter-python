@@ -2,38 +2,30 @@ trigger:
   batch: true
   branches:
     include:
-      - master
-  paths:
-    include:
-      - '/'
+      - main
 
 pr:
   branches:
     include:
-      - master
-  paths:
-    include:
-      - '/'
+      - main
 
 schedules:
   - cron: '0 0 * * 0'
     displayName: Weekly build
     branches:
       include:
-        - master
+        - main
     always: true
 
 resources:
   repositories:
-  - repository: templates
-    type: github
-    name: osisoft/OSI-Samples
-    endpoint: osisoft/OSI-Samples
+    - repository: templates
+      type: github
+      name: osisoft/OSI-Samples
+      endpoint: osisoft/OSI-Samples
 
 variables:
   - template: '/miscellaneous/build_templates/variables.yml@templates'
-  - name: projPath
-    value: '/'
   - name: CredFile
     value: test_config.json
   - name: CredFileLibrary
@@ -46,26 +38,27 @@ jobs:
     pool:
       name: 00-OSIManaged-Test
       demands: COMPUTERNAME -equals $(buildAgent)
+    variables:
+      analysisProject: PIWebAPI_Data_Analysis_Upload
     steps:
       - template: '/miscellaneous/build_templates/config.yml@templates'
         parameters:
           fileOriginal: $(CredFile)
           fileLibrary: $(CredFileLibrary)
-          filePath: $(projPath)
-      - task: NuGetToolInstaller@1
-        inputs:
-          versionSpec:
+
       - task: DotNetCoreCLI@2
         displayName: Restore
         inputs:
           command: 'restore'
           projects: '**/UploadUtility.csproj'
           feedsToUse: 'select'
+
       - task: DotNetCoreCLI@2
         displayName: Build
         inputs:
           command: 'build'
           projects: '**/UploadUtility.csproj'
+
       - task: CopyFiles@2
         displayName: Copy Build Output Files
         inputs:
@@ -74,15 +67,25 @@ jobs:
           contents: '**/bin/Debug/net*/*'
           overWrite: true
           flattenFolders: true
+
       - task: PublishBuildArtifacts@1
+        displayName: Publish Build Output Files
         inputs:
           PathtoPublish: '$(Build.BinariesDirectory)'
           ArtifactName: 'UploadUtility'
           publishLocation: 'Container'
+
       - task: PowerShell@2
+        displayName: Run UploadUtility
         inputs:
           targetType: 'inline'
           script: '&"$(Build.BinariesDirectory)/UploadUtility.exe" "$(Build.SourcesDirectory)/UploadUtility/Building Example.xml" "$(Build.SourcesDirectory)/UploadUtility/tagdefinition.csv" "$(Build.SourcesDirectory)/UploadUtility/pidata.csv" "$(Build.SourcesDirectory)/test_config.json"'
+
+      - template: '/miscellaneous/build_templates/binskim.yml@templates'
+
+      - template: '/miscellaneous/build_templates/analysis.yml@templates'
+        parameters:
+          projectPath: '/UploadUtility'
 
   - job: Tests
     pool:
@@ -94,7 +97,6 @@ jobs:
         parameters:
           fileOriginal: $(CredFile)
           fileLibrary: $(CredFileLibrary)
-          filePath: $(projPath)
 
       - script: |
           echo Install pip
@@ -109,7 +111,6 @@ jobs:
           echo Run tests
           call jupyter nbconvert --to notebook --inplace --ExecuteProcessor.timeout=6000 --execute Notebook.ipynb
           echo Complete
-        workingDirectory: $(Build.SourcesDirectory)$(projPath)
         displayName: 'Run tests'
 
       - task: PublishTestResults@2
@@ -117,10 +118,9 @@ jobs:
         inputs:
           testResultsFormat: 'JUnit'
           testResultsFiles: '**\output.xml'
-          searchFolder: $(Build.SourcesDirectory)$(projPath)
-          testRunTitle: 'Publish test results'
+          searchFolder: $(Build.SourcesDirectory)
 
-  - template: '/miscellaneous/build_templates/analysis.yml@templates'
-    parameters:
-      language: python
-      skipPolaris: true
+      - template: '/miscellaneous/build_templates/analysis.yml@templates'
+        parameters:
+          skipPolaris: true
+          useRequirementsTxt: true
