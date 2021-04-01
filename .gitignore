@@ -319,6 +319,8 @@ junit/
 *.binlog
 junit/
 
+.ipynb_checkpoints/
+
 # Credential Config Files
 product-readiness.*
 appsettings.json
