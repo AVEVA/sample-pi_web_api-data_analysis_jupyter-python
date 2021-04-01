@@ -113,13 +113,6 @@ jobs:
           echo Complete
         displayName: 'Run tests'
 
-      - task: PublishTestResults@2
-        condition: succeededOrFailed()
-        inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: '**\output.xml'
-          searchFolder: $(Build.SourcesDirectory)
-
       - template: '/miscellaneous/build_templates/analysis.yml@templates'
         parameters:
           skipPolaris: true
