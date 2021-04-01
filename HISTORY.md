@@ -1,5 +1,10 @@
 # Version History
 
+## 1.0.10 / 2021-04-01
+
+- Refactor tests to check whether sample runs to completion
+- Refactor pipelines to run analysis tasks in separate jobs
+
 ## 1.0.9 / 2021-03-04
 
 - Updated pipeline to reference main branch
