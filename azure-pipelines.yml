@@ -38,8 +38,6 @@ jobs:
     pool:
       name: 00-OSIManaged-Test
       demands: COMPUTERNAME -equals $(buildAgent)
-    variables:
-      analysisProject: PIWebAPI_Data_Analysis_Upload
     steps:
       - template: '/miscellaneous/build_templates/config.yml@templates'
         parameters:
@@ -81,6 +79,19 @@ jobs:
           targetType: 'inline'
           script: '&"$(Build.BinariesDirectory)/UploadUtility.exe" "$(Build.SourcesDirectory)/UploadUtility/Building Example.xml" "$(Build.SourcesDirectory)/UploadUtility/tagdefinition.csv" "$(Build.SourcesDirectory)/UploadUtility/pidata.csv" "$(Build.SourcesDirectory)/test_config.json"'
 
+  - job: Analysis_BulkUploadUtility
+    pool:
+      name: 00-OSIManaged-Containers
+      demands: Agent.OS -equals Windows_NT
+    variables:
+      analysisProject: PIWebAPI_Data_Analysis_Upload
+    steps:
+      - task: DotNetCoreCLI@2
+        displayName: 'Build'
+        inputs:
+          command: build
+          projects: '**/UploadUtility.csproj'
+
       - template: '/miscellaneous/build_templates/binskim.yml@templates'
 
       - template: '/miscellaneous/build_templates/analysis.yml@templates'
@@ -109,16 +120,28 @@ jobs:
           echo Install requirements
           call pip install -r requirements.txt
           echo Run tests
-          call jupyter nbconvert --to notebook --inplace --ExecuteProcessor.timeout=6000 --execute Notebook.ipynb
+          call jupyter nbconvert --to script Notebook.ipynb
+          python -m pytest --junitxml=junit/test-results.xml ./Notebook.py
           echo Complete
         displayName: 'Run tests'
 
       - task: PublishTestResults@2
-        condition: succeededOrFailed()
         inputs:
-          testResultsFormat: 'JUnit'
-          testResultsFiles: '**\output.xml'
-          searchFolder: $(Build.SourcesDirectory)
+          testResultsFiles: '**/test-*.xml'
+          searchFolder: '$(Build.SourcesDirectory)'
+          failTaskOnFailedTests: true
+          testRunTitle: '$(Agent.JobName) on $(Agent.OS)'
+        displayName: 'Publish test results'
+        condition: always()
+
+  - job: Analysis
+    pool:
+      name: 00-OSIManaged-Containers
+      demands: Agent.OS -equals Windows_NT
+    steps:
+      - script: |
+          pip install nbconvert
+          jupyter nbconvert --to script Notebook.ipynb
 
       - template: '/miscellaneous/build_templates/analysis.yml@templates'
         parameters:
