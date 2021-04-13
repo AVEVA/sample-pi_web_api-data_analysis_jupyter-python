@@ -1,5 +1,9 @@
 # Version History
 
+## 1.0.11 / 2021-04-13
+
+- Updated dependencies
+
 ## 1.0.10 / 2021-04-01
 
 - Refactor tests to check whether sample runs to completion
