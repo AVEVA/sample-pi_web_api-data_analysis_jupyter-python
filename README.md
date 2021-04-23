@@ -43,14 +43,28 @@ All this data is available as part of `Building Data.xml`. There is a helpful ut
   For example:
 
 ```json
-"PIWEBAPI_URL": "https://mydomain.com/piwebapi/",
-"AF_SERVER_NAME": "AssetServerName",
-"PI_SERVER_NAME": "PIServerName",
-"AF_DATABASE_NAME": "AFDatabaseNAme",
-"USER_NAME": "MyUserName",
-"USER_PASSWORD": "MyUserPassword",
-"AUTH_TYPE": "basic"
+{
+  "endpoint-type": "PI",
+  "resource": "REPLACE_WITH_PI_WEB_API_URL",
+  "data-server-name": "REPLACE_WITH_DATA_ARCHIVE_NAME",
+  "asset-server-name": "REPLACE_WITH_ASSET_FRAMEWORK_SERVER_NAME",
+  "username": "REPLACE_WITH_USERNAME",
+  "password": "REPLACE_WITH_PASSWORD",
+  "auth-type": "basic",
+  "verify-ssl": true
+}
 ```
+
+| Parameters                  | Required | Type           | Description                                                                                                                                                      |
+| --------------------------- | -------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| endpoint-type               | required | string         | The endpoint type. For this sample it will always be "PI"                                                                                                         |
+| resource                    | required | string         | The URL of the PI Web API                                                                                                                                        |
+| data-server-name            | required | string         | The name of the PI Data Archive that is being sent to                                                                                                            |
+| asset-server-name           | required | string         | The name of the AF server that is being sent to                                                                                                                  |
+| username                    | required | string         | The username that is being used for authenticating to the PI Web API                                                                                             |
+| password                    | required | string         | The password that is being used for authenticating to the PI Web API                                                                                             |
+| auth-type                   | optional | string         | The type of authentication to use when connecting to the PI Web API. By default this is set to "basic"                                                        |
+| verify-ssl                  | optional | string/boolean | A feature flag for verifying SSL when connecting to the PI Web API. By default this is set to true. This can also be set to the path of a certificate store.                   |
 
 - `Building Example.xml` assumes that the PI Server is on the same system. Edit the `Building Example.xml` to replace all occurences of `localhost`to your PI Server.
 - Run `PIUploadUtility.sln` which imports the AF database from `Building Example.xml`, creates PI tags outlined in `tagdefinition.csv` and uploads the values in `pidata.csv` to PI Data Archive.
