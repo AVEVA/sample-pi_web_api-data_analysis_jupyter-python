@@ -48,6 +48,7 @@ namespace UploadUtility
             }
 
             _config = JObject.Parse(File.ReadAllText(configFile));
+            _config = (JObject)_config["endpoints"][0];
             _client = new PIWebAPIClient(
                 _config["resource"].ToString(),
                 _config["username"].ToString(),
