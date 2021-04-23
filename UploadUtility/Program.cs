@@ -49,12 +49,12 @@ namespace UploadUtility
 
             _config = JObject.Parse(File.ReadAllText(configFile));
             _client = new PIWebAPIClient(
-                _config["PIWEBAPI_URL"].ToString(),
-                _config["USER_NAME"].ToString(),
-                _config["USER_PASSWORD"].ToString());
+                _config["resource"].ToString(),
+                _config["username"].ToString(),
+                _config["password"].ToString());
 
-            string dataserver = _config["PI_SERVER_NAME"].ToString();
-            string assetserver = _config["AF_SERVER_NAME"].ToString();
+            string dataserver = _config["data-server-name"].ToString();
+            string assetserver = _config["asset-server-name"].ToString();
 
             // Delete existing AF Database if it exists
             if (DoesDatabaseExist(assetserver))
@@ -101,7 +101,7 @@ namespace UploadUtility
 
             string createDBQuery = $"assetservers/{assetserverWebID}/assetdatabases";
 
-            string databaseName = _config["AF_DATABASE_NAME"].ToString();
+            string databaseName = _config["asset-database-name"].ToString();
 
             object payload = new 
             {
@@ -172,7 +172,7 @@ namespace UploadUtility
 
         private static void DeleteExistingDatabase(string assetserver)
         {
-            string databaseName = _config["AF_DATABASE_NAME"].ToString();
+            string databaseName = _config["asset-database-name"].ToString();
             string databasePath = $"\\\\{assetserver}\\{databaseName}";
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
 
@@ -189,7 +189,7 @@ namespace UploadUtility
 
         private static bool DoesDatabaseExist(string assetserver)
         {
-            string databaseName = _config["AF_DATABASE_NAME"].ToString();
+            string databaseName = _config["asset-database-name"].ToString();
             string databasePath = $"\\\\{assetserver}\\{databaseName}";
 
             string getDatabaseQuery = $"assetdatabases/?path={databasePath}";
