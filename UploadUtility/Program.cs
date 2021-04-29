@@ -48,14 +48,13 @@ namespace UploadUtility
             }
 
             _config = JObject.Parse(File.ReadAllText(configFile));
-            _config = (JObject)_config["endpoints"][0];
             _client = new PIWebAPIClient(
-                _config["resource"].ToString(),
-                _config["username"].ToString(),
-                _config["password"].ToString());
+                _config["Resource"].ToString(),
+                _config["Username"].ToString(),
+                _config["Password"].ToString());
 
-            string dataserver = _config["data-server-name"].ToString();
-            string assetserver = _config["asset-server-name"].ToString();
+            string dataserver = _config["DataServerName"].ToString();
+            string assetserver = _config["AssetServerName"].ToString();
 
             // Delete existing AF Database if it exists
             if (DoesDatabaseExist(assetserver))
