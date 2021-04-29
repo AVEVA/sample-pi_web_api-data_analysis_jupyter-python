@@ -101,7 +101,7 @@ namespace UploadUtility
 
             string createDBQuery = $"assetservers/{assetserverWebID}/assetdatabases";
 
-            string databaseName = _config["asset-database-name"].ToString();
+            string databaseName = _config["AssetDatabaseName"].ToString();
 
             object payload = new 
             {
@@ -172,7 +172,7 @@ namespace UploadUtility
 
         private static void DeleteExistingDatabase(string assetserver)
         {
-            string databaseName = _config["asset-database-name"].ToString();
+            string databaseName = _config["AssetDatabaseName"].ToString();
             string databasePath = $"\\\\{assetserver}\\{databaseName}";
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
 
@@ -189,7 +189,7 @@ namespace UploadUtility
 
         private static bool DoesDatabaseExist(string assetserver)
         {
-            string databaseName = _config["asset-database-name"].ToString();
+            string databaseName = _config["AssetDatabaseName"].ToString();
             string databasePath = $"\\\\{assetserver}\\{databaseName}";
 
             string getDatabaseQuery = $"assetdatabases/?path={databasePath}";
