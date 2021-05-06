@@ -3,6 +3,7 @@
 ## 1.0.12 / 2021-04-23
 
 - Implement certificate validation
+- Configuration file changes
 
 ## 1.0.11 / 2021-04-13
 
