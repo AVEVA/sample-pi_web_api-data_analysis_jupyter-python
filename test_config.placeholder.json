@@ -1,9 +1,9 @@
 {
-	"PIWEBAPI_URL": "https://localhost/piwebapi",
-	"AF_SERVER_NAME": "",
-	"PI_SERVER_NAME": "",
-	"AF_DATABASE_NAME": "",
-	"USER_NAME": "",
-	"USER_PASSWORD": "",
-	"AUTH_TYPE": "basic"
+  "Resource": "REPLACE_WITH_PI_WEB_API_URL",
+  "DataServerName": "REPLACE_WITH_DATA_ARCHIVE_NAME",
+  "AssetServerName": "REPLACE_WITH_ASSET_FRAMEWORK_SERVER_NAME",
+  "Username": "REPLACE_WITH_USERNAME",
+  "Password": "REPLACE_WITH_PASSWORD",
+  "AuthType": "basic",
+  "VerifySSL": true
 }

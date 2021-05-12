@@ -29,7 +29,7 @@ variables:
   - name: CredFile
     value: test_config.json
   - name: CredFileLibrary
-    value: product-readiness.piweb_da.json
+    value: product-readiness.piwebapi_python.json
   - name: analysisProject
     value: PIWebAPI_Data_Analysis
 
