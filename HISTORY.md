@@ -1,5 +1,9 @@
 # Version History
 
+## 1.0.13 / 2021-05-18
+
+- Updated dependencies
+
 ## 1.0.12 / 2021-04-23
 
 - Implement certificate validation
