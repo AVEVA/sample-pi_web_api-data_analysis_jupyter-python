@@ -56,7 +56,6 @@ namespace UploadUtility
             if (!(uri.Equals("streamsets/recorded") || (uri.StartsWith("assetservers/") && uri.EndsWith("/assetdatabases"))))
                 throw new Exception($"Invalid uri {uri}");
 
-            Console.WriteLine(uri);
             HttpResponseMessage response = await _client.PostAsync(
                 uri, new StringContent(data, Encoding.UTF8, "application/json"));
 
@@ -72,6 +71,9 @@ namespace UploadUtility
 
         public async Task PostXmlAsync(string uri, string data)
         {
+            if (!(uri.StartsWith("assetdatabases/") && uri.EndsWith("/import")))
+                throw new Exception($"Invalid uri {uri}");
+
             HttpResponseMessage response = await _client.PostAsync(
                 uri, new StringContent(data, Encoding.UTF8, "text/xml"));
 
@@ -87,6 +89,9 @@ namespace UploadUtility
 
         public async Task DeleteAsync(string uri)
         {
+            if (!uri.StartsWith("assetdatabases/"))
+                throw new Exception($"Invalid uri {uri}");
+
             HttpResponseMessage response = await _client.DeleteAsync(uri);
             Console.WriteLine("DELETE response code " + response.StatusCode);
             string content = await response.Content.ReadAsStringAsync();
