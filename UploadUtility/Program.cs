@@ -89,7 +89,7 @@ namespace UploadUtility
                 Console.WriteLine(webId);
 
                 // Validate the webId
-                Regex regex = new Regex("[a-zA-Z0-9_]");
+                Regex regex = new Regex("[a-zA-Z0-9_-]");
                 foreach (char c in webId)
                 {
                     if (!regex.IsMatch(c.ToString()))
