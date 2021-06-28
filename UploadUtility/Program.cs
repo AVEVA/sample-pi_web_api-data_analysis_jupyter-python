@@ -86,6 +86,7 @@ namespace UploadUtility
             {
                 JObject response = _client.GetRequest(query);
                 string webId = response["WebId"].ToString();
+                Console.WriteLine(webId);
 
                 // Validate the webId
                 Regex regex = new Regex("[a-zA-Z0-9_]");
