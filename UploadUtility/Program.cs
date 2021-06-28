@@ -84,7 +84,15 @@ namespace UploadUtility
             try
             {
                 JObject response = _client.GetRequest(query);
-                return response["WebId"].ToString();
+                string webId = response["WebId"].ToString();
+
+                // Validate the webId
+                if (!webId.StartsWith("F1"))
+                {
+                    throw new Exception($"Invalid webId {webId}");
+                }
+                     
+                return webId;
             }
             catch (Exception e)
             {
