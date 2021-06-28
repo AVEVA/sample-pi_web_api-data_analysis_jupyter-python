@@ -85,25 +85,8 @@ namespace UploadUtility
             try
             {
                 JObject response = _client.GetRequest(query);
-                string webId = response["WebId"].ToString();
-
-                // Validate the webId
-                Regex regex = new Regex("[a-zA-Z0-9_-]");
-                string validatedWebId = "";
-                foreach (char c in webId)
-                {
-                    if (!regex.IsMatch(c.ToString()))
-                        throw new Exception($"Invalid webId {webId}");
-                    else
-                        validatedWebId += c.ToString();
-                }
-
-                if (!validatedWebId.StartsWith("F1"))
-                {
-                    throw new Exception($"Invalid webId {validatedWebId}");
-                }
                      
-                return validatedWebId;
+                return response["WebId"].ToString();
             }
             catch (Exception e)
             {

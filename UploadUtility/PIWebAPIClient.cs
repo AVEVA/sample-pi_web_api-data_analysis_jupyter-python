@@ -80,8 +80,14 @@ namespace UploadUtility
 
         public async Task PostXmlAsync(string uri, string data)
         {
+            if (!Uri.TryCreate(_client.BaseAddress, uri, out Uri newUri))
+                throw new Exception($"Invalid input for uri {uri}");
+
+            if (!_client.BaseAddress.IsBaseOf(newUri))
+                throw new Exception($"Base uri has been modified!");
+
             HttpResponseMessage response = await _client.PostAsync(
-                uri, new StringContent(data, Encoding.UTF8, "text/xml"));
+                newUri, new StringContent(data, Encoding.UTF8, "text/xml"));
 
             Console.WriteLine("GET response code " + response.StatusCode);
             string content = await response.Content.ReadAsStringAsync();
@@ -95,7 +101,13 @@ namespace UploadUtility
 
         public async Task DeleteAsync(string uri)
         {
-            HttpResponseMessage response = await _client.DeleteAsync(uri);
+            if (!Uri.TryCreate(_client.BaseAddress, uri, out Uri newUri))
+                throw new Exception($"Invalid input for uri {uri}");
+
+            if (!_client.BaseAddress.IsBaseOf(newUri))
+                throw new Exception($"Base uri has been modified!");
+
+            HttpResponseMessage response = await _client.DeleteAsync(newUri);
             Console.WriteLine("DELETE response code " + response.StatusCode);
             string content = await response.Content.ReadAsStringAsync();
 
