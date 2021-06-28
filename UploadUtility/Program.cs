@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -87,6 +88,13 @@ namespace UploadUtility
                 string webId = response["WebId"].ToString();
 
                 // Validate the webId
+                Regex regex = new Regex("[a-zA-Z0-9_]");
+                foreach (char c in webId)
+                {
+                    if (!regex.IsMatch(c.ToString()))
+                        throw new Exception($"Invalid webId {webId}");
+                }
+
                 if (!webId.StartsWith("F1"))
                 {
                     throw new Exception($"Invalid webId {webId}");
