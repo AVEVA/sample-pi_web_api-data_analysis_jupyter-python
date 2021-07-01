@@ -1,5 +1,9 @@
 # Version History
 
+## 1.0.16 / 2021-06-29
+
+- Resolve polarity path manipulation issues
+
 ## 1.0.15 / 2021-06-09
 
 - Updated dependencies

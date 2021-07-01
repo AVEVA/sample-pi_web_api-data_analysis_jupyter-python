@@ -84,6 +84,7 @@ namespace UploadUtility
             try
             {
                 JObject response = _client.GetRequest(query);
+                     
                 return response["WebId"].ToString();
             }
             catch (Exception e)
@@ -103,14 +104,14 @@ namespace UploadUtility
 
             string databaseName = _config["AssetDatabaseName"].ToString();
 
-            object payload = new 
+            object payload = new
             {
-                 Name = databaseName,
-                 Description = "Example for Building Data",
+                Name = databaseName,
+                Description = "Example for Building Data",
             };
 
             string request_body = JsonConvert.SerializeObject(payload);
-            
+
             try
             {
                 _client.PostRequest(createDBQuery, request_body);
@@ -119,7 +120,7 @@ namespace UploadUtility
             {
                 Console.WriteLine(e.InnerException.Message);
             }
-            
+
             string databasePath = $"{serverPath}\\{databaseName}";
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
             string importQuery = $"assetdatabases/{databaseWebID}/import";
@@ -139,7 +140,7 @@ namespace UploadUtility
             string path = $"\\\\PIServers[{dataserver}]";
             string dataserverWebID = GetWebIDByPath(path, "dataservers");
             string createPIPointQuery = $"dataservers/{dataserverWebID}/points";
-            
+
             var tagDefinitions = File.ReadLines(tagDefinitionLocation);
             string name, pointType, pointClass;
 
@@ -216,7 +217,7 @@ namespace UploadUtility
         private static bool DoesTagExist(string dataserver)
         {
             string tagname = "VAVCO 2-09.Predicted Cooling Time";
-           
+
             string path = $"\\\\{dataserver}\\{tagname}";
             string getPointQuery = $"points?path={path}";
 
@@ -235,10 +236,10 @@ namespace UploadUtility
                     Console.WriteLine(e.InnerException.Message);
                 }
             }
-            
+
             return true;
         }
-        
+
         private static void UpdateValues(string dataserver, string tagDefinitionLocation, string piDataLocation)
         {
             var tags = File.ReadLines(tagDefinitionLocation);
@@ -264,7 +265,7 @@ namespace UploadUtility
 
                 var items = new List<object>();
                 foreach (string[] line in entries)
-                {                    
+                {
                     object item = new
                     {
                         Timestamp = line[3],
