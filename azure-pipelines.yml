@@ -43,6 +43,13 @@ jobs:
         parameters:
           fileOriginal: $(CredFile)
           fileLibrary: $(CredFileLibrary)
+          
+      - task: DotNetCoreCLI@2
+        displayName: Restore
+        inputs:
+          command: 'restore'
+          projects: '**/UploadUtility.csproj'
+          feedsToUse: 'select'
 
       - task: DotNetCoreCLI@2
         displayName: Build
