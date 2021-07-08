@@ -43,7 +43,7 @@ jobs:
         parameters:
           fileOriginal: $(CredFile)
           fileLibrary: $(CredFileLibrary)
-          
+
       - task: DotNetCoreCLI@2
         displayName: Restore
         inputs:
