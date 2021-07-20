@@ -90,18 +90,9 @@ namespace UploadUtility
         {
             string query = $"{resource}?path={path}";
 
-            try
-            {
-                JObject response = _client.GetRequest(new Uri(query));
+            JObject response = _client.GetRequest(query);
                      
-                return response["WebId"].ToString();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
-            return null;
+            return response["WebId"].ToString();
         }
 
         private static void CreateDatabase(XmlDocument doc, string assetserver)
@@ -121,27 +112,13 @@ namespace UploadUtility
 
             string request_body = JsonConvert.SerializeObject(payload);
 
-            try
-            {
-                _client.PostRequest(new Uri(createDBQuery), request_body);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            _client.PostRequest(createDBQuery, request_body);
 
             string databasePath = $"{serverPath}\\{databaseName}";
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
             string importQuery = $"assetdatabases/{databaseWebID}/import";
 
-            try
-            {
-                _client.PostRequest(new Uri(importQuery), doc.InnerXml.ToString(), true);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            _client.PostRequest(importQuery, doc.InnerXml.ToString(), true);
         }
 
         private static void CreatePIPoint(string dataserver, string tagDefinitionLocation)
@@ -169,14 +146,7 @@ namespace UploadUtility
 
                 string request_body = JsonConvert.SerializeObject(payload);
 
-                try
-                {
-                    _client.PostRequest(new Uri(createPIPointQuery), request_body);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
+                _client.PostRequest(createPIPointQuery, request_body);
             }
         }
 
@@ -187,14 +157,7 @@ namespace UploadUtility
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
 
             string deleteQuery = $"assetdatabases/{databaseWebID}";
-            try
-            {
-                _client.DeleteRequest(new Uri(deleteQuery));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            _client.DeleteRequest(deleteQuery);
         }
 
         private static bool DoesDatabaseExist(string assetserver)
@@ -206,7 +169,7 @@ namespace UploadUtility
 
             try
             {
-                JObject result = _client.GetRequest(new Uri(getDatabaseQuery));
+                JObject result = _client.GetRequest(getDatabaseQuery);
             }
             catch (Exception e)
             {
@@ -214,10 +177,8 @@ namespace UploadUtility
                 {
                     return false;
                 }
-                else
-                {
-                    Console.WriteLine(e.ToString());
-                }
+
+                throw;
             }
 
             return true;
@@ -232,7 +193,7 @@ namespace UploadUtility
 
             try
             {
-                JObject result = _client.GetRequest(new Uri(getPointQuery));
+                JObject result = _client.GetRequest(getPointQuery);
             }
             catch (Exception e)
             {
@@ -240,10 +201,8 @@ namespace UploadUtility
                 {
                     return false;
                 }
-                else
-                {
-                    Console.WriteLine(e.ToString());
-                }
+
+                throw;
             }
 
             return true;
@@ -290,15 +249,7 @@ namespace UploadUtility
                 };
 
                 string request_body = "[" + JsonConvert.SerializeObject(payload) + "]";
-
-                try
-                {
-                    _client.PostRequest(new Uri(updateValueQuery), request_body);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
+                _client.PostRequest(updateValueQuery, request_body);
             }
         }
     }

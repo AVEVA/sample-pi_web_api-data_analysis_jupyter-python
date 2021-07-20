@@ -46,22 +46,16 @@ namespace UploadUtility
         }
 
         /// <summary>
-        /// Runs an async GET request at the specified url endpoint
+        /// Runs an async GET request at the specified url path
         /// </summary>
-        public async Task<JObject> GetAsync(Uri uri)
+        public async Task<JObject> GetAsync(string path)
         {
-            if (!Uri.TryCreate(_client.BaseAddress, uri, out Uri newUri))
-                throw new Exception($"Invalid input for uri {uri}");
+            if (!Uri.TryCreate(_client.BaseAddress, path, out Uri newUri))
+                throw new Exception($"Invalid input for uri {path}");
 
             if (!_client.BaseAddress.IsBaseOf(newUri))
                 throw new Exception($"Base uri has been modified!");
 
-            if (uri != null)
-            {
-                Console.WriteLine(uri.ToString());
-            }
-
-            Console.WriteLine(newUri.ToString());
             HttpResponseMessage response = await _client.GetAsync(newUri).ConfigureAwait(false);
 
             Console.WriteLine("GET response code " + response.StatusCode);
@@ -77,12 +71,12 @@ namespace UploadUtility
         }
 
         /// <summary>
-        /// Runs an async POST request at the specified url endpoint
+        /// Runs an async POST request at the specified url path
         /// </summary>
-        public async Task PostAsync(Uri uri, string data)
+        public async Task PostAsync(string path, string data)
         {
-            if (!Uri.TryCreate(_client.BaseAddress, uri, out Uri newUri))
-                throw new Exception($"Invalid input for uri {uri}");
+            if (!Uri.TryCreate(_client.BaseAddress, path, out Uri newUri))
+                throw new Exception($"Invalid input for uri {path}");
 
             if (!_client.BaseAddress.IsBaseOf(newUri))
                 throw new Exception($"Base uri has been modified!");
@@ -102,12 +96,12 @@ namespace UploadUtility
         }
 
         /// <summary>
-        /// Runs an async POST request using XML data at the specified url endpoint
+        /// Runs an async POST request using XML data at the specified url path
         /// </summary>
-        public async Task PostXmlAsync(Uri uri, string data)
+        public async Task PostXmlAsync(string path, string data)
         {
-            if (!Uri.TryCreate(_client.BaseAddress, uri, out Uri newUri))
-                throw new Exception($"Invalid input for uri {uri}");
+            if (!Uri.TryCreate(_client.BaseAddress, path, out Uri newUri))
+                throw new Exception($"Invalid input for uri {path}");
 
             if (!_client.BaseAddress.IsBaseOf(newUri))
                 throw new Exception($"Base uri has been modified!");
@@ -127,12 +121,12 @@ namespace UploadUtility
         }
 
         /// <summary>
-        /// Runs an async DELETE request at the specified url endpoint
+        /// Runs an async DELETE request at the specified url path
         /// </summary>
-        public async Task DeleteAsync(Uri uri)
+        public async Task DeleteAsync(string path)
         {
-            if (!Uri.TryCreate(_client.BaseAddress, uri, out Uri newUri))
-                throw new Exception($"Invalid input for uri {uri}");
+            if (!Uri.TryCreate(_client.BaseAddress, path, out Uri newUri))
+                throw new Exception($"Invalid input for uri {path}");
 
             if (!_client.BaseAddress.IsBaseOf(newUri))
                 throw new Exception($"Base uri has been modified!");
@@ -149,38 +143,38 @@ namespace UploadUtility
         }
 
         /// <summary>
-        /// Run a GET request at the specified url endpoint
+        /// Run a GET request at the specified url path
         /// </summary>
-        public JObject GetRequest(Uri uri)
+        public JObject GetRequest(string path)
         {
-            Task<JObject> t = GetAsync(uri);
+            Task<JObject> t = GetAsync(path);
             t.Wait();
             return t.Result;
         }
 
         /// <summary>
-        /// Run a POST request at the specified url endpoint
+        /// Run a POST request at the specified url path
         /// </summary>
-        public void PostRequest(Uri uri, string data, bool isXML = false)
+        public void PostRequest(string path, string data, bool isXML = false)
         {
             if (isXML)
             {
-                Task t = PostXmlAsync(uri, data);
+                Task t = PostXmlAsync(path, data);
                 t.Wait();
             }
             else
             {
-                Task t = PostAsync(uri, data);
+                Task t = PostAsync(path, data);
                 t.Wait();
             }
         }
 
         /// <summary>
-        /// Run a DELETE request at the specified url endpoint
+        /// Run a DELETE request at the specified url path
         /// </summary>
-        public void DeleteRequest(Uri uri)
+        public void DeleteRequest(string path)
         {
-            Task t = DeleteAsync(uri);
+            Task t = DeleteAsync(path);
             t.Wait();
         }
 
