@@ -597,8 +597,7 @@ dotnet_diagnostic.CA1028.severity = error
 # CA1030: Use events where appropriate
 dotnet_diagnostic.CA1030.severity = error
 # CA1031: Do not catch general exception types
-# Override: Allow catching general exceptions for sample code to ensure cleanup
-dotnet_diagnostic.CA1031.severity = none
+dotnet_diagnostic.CA1031.severity = error
 # CA1032: Implement standard exception constructors
 dotnet_diagnostic.CA1032.severity = error
 # CA1033: Interface methods should be callable by child types
@@ -1073,3 +1072,9 @@ dotnet_diagnostic.IL3001.severity = error
 #   # SA1000: Keywords should be spaced correctly
 #   dotnet_diagnostic.SA1000.severity = none # PBI: <link to PBI>
 ####################################################################
+# SA0001: XML comment analysis disabled
+dotnet_diagnostic.SA0001.severity = none # No XML required in sample code
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA1031.severity = error # Allow catching general exceptions for sample code to ensure cleanup
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = none # Prefer inline strings in sample code for readability

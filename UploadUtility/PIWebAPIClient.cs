@@ -8,16 +8,10 @@ using Newtonsoft.Json.Linq;
 
 namespace UploadUtility
 {
-    /// <summary>
-    /// PI Web API Client
-    /// </summary>
     public class PIWebAPIClient : IDisposable
     {
         private readonly HttpClient _client;
 
-        /// <summary>
-        /// Basic constructor for PI Web API Client using default credentials
-        /// </summary>
         public PIWebAPIClient()
         {
             using var handler = new HttpClientHandler() { UseDefaultCredentials = true };
@@ -25,9 +19,6 @@ namespace UploadUtility
             _client.DefaultRequestHeaders.Add("X-Requested-With", "xhr");
         }
 
-        /// <summary>
-        /// Constructor for PI Web API Client using specific user credentials
-        /// </summary>
         public PIWebAPIClient(string baseAddress, string username, string password)
         {
             _client = new HttpClient();
@@ -45,9 +36,6 @@ namespace UploadUtility
             _client.DefaultRequestHeaders.Add("X-Requested-With", "xhr");
         }
 
-        /// <summary>
-        /// Runs an async GET request at the specified url path
-        /// </summary>
         public async Task<JObject> GetAsync(string path)
         {
             if (!Uri.TryCreate(_client.BaseAddress, path, out Uri newUri))
@@ -70,9 +58,6 @@ namespace UploadUtility
             return JObject.Parse(content);
         }
 
-        /// <summary>
-        /// Runs an async POST request at the specified url path
-        /// </summary>
         public async Task PostAsync(string path, string data)
         {
             if (!Uri.TryCreate(_client.BaseAddress, path, out Uri newUri))
@@ -95,9 +80,6 @@ namespace UploadUtility
             }
         }
 
-        /// <summary>
-        /// Runs an async POST request using XML data at the specified url path
-        /// </summary>
         public async Task PostXmlAsync(string path, string data)
         {
             if (!Uri.TryCreate(_client.BaseAddress, path, out Uri newUri))
@@ -120,9 +102,6 @@ namespace UploadUtility
             }
         }
 
-        /// <summary>
-        /// Runs an async DELETE request at the specified url path
-        /// </summary>
         public async Task DeleteAsync(string path)
         {
             if (!Uri.TryCreate(_client.BaseAddress, path, out Uri newUri))
@@ -142,9 +121,6 @@ namespace UploadUtility
             }
         }
 
-        /// <summary>
-        /// Run a GET request at the specified url path
-        /// </summary>
         public JObject GetRequest(string path)
         {
             Task<JObject> t = GetAsync(path);
@@ -152,9 +128,6 @@ namespace UploadUtility
             return t.Result;
         }
 
-        /// <summary>
-        /// Run a POST request at the specified url path
-        /// </summary>
         public void PostRequest(string path, string data, bool isXML = false)
         {
             if (isXML)
@@ -169,27 +142,18 @@ namespace UploadUtility
             }
         }
 
-        /// <summary>
-        /// Run a DELETE request at the specified url path
-        /// </summary>
         public void DeleteRequest(string path)
         {
             Task t = DeleteAsync(path);
             t.Wait();
         }
 
-        /// <summary>
-        /// Clean up disposable resources
-        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        /// <summary>
-        /// Clean up disposable resources
-        /// </summary>
         protected virtual void Dispose(bool disposing)
         {
             if (_client != null)

@@ -7,9 +7,6 @@ using Newtonsoft.Json.Linq;
 
 namespace UploadUtility
 {
-    /// <summary>
-    /// Main sample program
-    /// </summary>
     public static class Program
     {
         private const string DefaultConfigFile = "test_config.json";
@@ -20,9 +17,6 @@ namespace UploadUtility
         private static JObject _config;
         private static PIWebAPIClient _client;
 
-        /// <summary>
-        /// Main sample program entry point
-        /// </summary>
         public static void Main(string[] args)
         {
             /*Use the default values provided at the beginning of this class (which work when running from Visual Studio) 
