@@ -1,5 +1,9 @@
 # Version History
 
+## 1.0.18 / 2021-07-20
+
+- Updated UploadUtility to follow latest code style ruleset
+
 ## 1.0.17 / 2021-07-06
 
 - Updated dependencies

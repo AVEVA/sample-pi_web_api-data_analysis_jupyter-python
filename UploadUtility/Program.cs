@@ -7,44 +7,53 @@ using Newtonsoft.Json.Linq;
 
 namespace UploadUtility
 {
-    public class Program
+    /// <summary>
+    /// Main sample program
+    /// </summary>
+    public static class Program
     {
-        private static readonly string _defaultConfigFile = "test_config.json";
-        private static readonly string _defaultDatabaseFile = "Building Example.xml";
-        private static readonly string _defaultTagDefinitionFile = "tagdefinition.csv";
-        private static readonly string _defaultPIDataFile = "pidata.csv";
+        private const string DefaultConfigFile = "test_config.json";
+        private const string DefaultDatabaseFile = "Building Example.xml";
+        private const string DefaultTagDefinitionFile = "tagdefinition.csv";
+        private const string DefaultPIDataFile = "pidata.csv";
 
         private static JObject _config;
         private static PIWebAPIClient _client;
 
+        /// <summary>
+        /// Main sample program entry point
+        /// </summary>
         public static void Main(string[] args)
         {
             /*Use the default values provided at the beginning of this class (which work when running from Visual Studio) 
                 or use the values provided by command line arguments*/
 
-            string configFile = _defaultConfigFile;
-            string databaseFile = _defaultDatabaseFile;
-            string tagDefinitionFile = _defaultTagDefinitionFile;
-            string piDataFile = _defaultPIDataFile;
+            string configFile = DefaultConfigFile;
+            string databaseFile = DefaultDatabaseFile;
+            string tagDefinitionFile = DefaultTagDefinitionFile;
+            string piDataFile = DefaultPIDataFile;
 
-            if (args.Length >= 1)
+            if (args != null)
             {
-                databaseFile = args[0];
-            }
+                if (args.Length >= 1)
+                {
+                    databaseFile = args[0];
+                }
 
-            if (args.Length >= 2)
-            {
-                tagDefinitionFile = args[1];
-            }
+                if (args.Length >= 2)
+                {
+                    tagDefinitionFile = args[1];
+                }
 
-            if (args.Length >= 3)
-            {
-                piDataFile = args[2];
-            }
+                if (args.Length >= 3)
+                {
+                    piDataFile = args[2];
+                }
 
-            if (args.Length >= 4)
-            {
-                configFile = args[3];
+                if (args.Length >= 4)
+                {
+                    configFile = args[3];
+                }
             }
 
             _config = JObject.Parse(File.ReadAllText(configFile));
@@ -83,7 +92,7 @@ namespace UploadUtility
 
             try
             {
-                JObject response = _client.GetRequest(query);
+                JObject response = _client.GetRequest(new Uri(query));
                      
                 return response["WebId"].ToString();
             }
@@ -114,7 +123,7 @@ namespace UploadUtility
 
             try
             {
-                _client.PostRequest(createDBQuery, request_body);
+                _client.PostRequest(new Uri(createDBQuery), request_body);
             }
             catch (Exception e)
             {
@@ -127,7 +136,7 @@ namespace UploadUtility
 
             try
             {
-                _client.PostRequest(importQuery, doc.InnerXml.ToString(), true);
+                _client.PostRequest(new Uri(importQuery), doc.InnerXml.ToString(), true);
             }
             catch (Exception e)
             {
@@ -162,7 +171,7 @@ namespace UploadUtility
 
                 try
                 {
-                    _client.PostRequest(createPIPointQuery, request_body);
+                    _client.PostRequest(new Uri(createPIPointQuery), request_body);
                 }
                 catch (Exception e)
                 {
@@ -180,7 +189,7 @@ namespace UploadUtility
             string deleteQuery = $"assetdatabases/{databaseWebID}";
             try
             {
-                _client.DeleteRequest(deleteQuery);
+                _client.DeleteRequest(new Uri(deleteQuery));
             }
             catch (Exception e)
             {
@@ -197,7 +206,7 @@ namespace UploadUtility
 
             try
             {
-                JObject result = _client.GetRequest(getDatabaseQuery);
+                JObject result = _client.GetRequest(new Uri(getDatabaseQuery));
             }
             catch (Exception e)
             {
@@ -223,7 +232,7 @@ namespace UploadUtility
 
             try
             {
-                JObject result = _client.GetRequest(getPointQuery);
+                JObject result = _client.GetRequest(new Uri(getPointQuery));
             }
             catch (Exception e)
             {
@@ -284,7 +293,7 @@ namespace UploadUtility
 
                 try
                 {
-                    _client.PostRequest(updateValueQuery, request_body);
+                    _client.PostRequest(new Uri(updateValueQuery), request_body);
                 }
                 catch (Exception e)
                 {
