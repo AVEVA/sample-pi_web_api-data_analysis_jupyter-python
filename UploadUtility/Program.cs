@@ -98,7 +98,7 @@ namespace UploadUtility
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.ToString());
             }
 
             return null;
@@ -127,7 +127,7 @@ namespace UploadUtility
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.ToString());
             }
 
             string databasePath = $"{serverPath}\\{databaseName}";
@@ -140,7 +140,7 @@ namespace UploadUtility
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.ToString());
             }
         }
 
@@ -175,7 +175,7 @@ namespace UploadUtility
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.InnerException.Message);
+                    Console.WriteLine(e.ToString());
                 }
             }
         }
@@ -193,7 +193,7 @@ namespace UploadUtility
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.ToString());
             }
         }
 
@@ -210,13 +210,13 @@ namespace UploadUtility
             }
             catch (Exception e)
             {
-                if (e.InnerException.Message.Contains("404"))
+                if (e.InnerException?.Message != null && e.InnerException.Message.Contains("404"))
                 {
                     return false;
                 }
                 else
                 {
-                    Console.WriteLine(e.InnerException.Message);
+                    Console.WriteLine(e.ToString());
                 }
             }
 
@@ -236,13 +236,13 @@ namespace UploadUtility
             }
             catch (Exception e)
             {
-                if (e.InnerException.Message.Contains("404"))
+                if (e.InnerException?.Message != null && e.InnerException.Message.Contains("404"))
                 {
                     return false;
                 }
                 else
                 {
-                    Console.WriteLine(e.InnerException.Message);
+                    Console.WriteLine(e.ToString());
                 }
             }
 
@@ -297,7 +297,7 @@ namespace UploadUtility
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.InnerException.Message);
+                    Console.WriteLine(e.ToString());
                 }
             }
         }

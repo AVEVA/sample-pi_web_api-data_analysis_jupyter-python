@@ -56,6 +56,12 @@ namespace UploadUtility
             if (!_client.BaseAddress.IsBaseOf(newUri))
                 throw new Exception($"Base uri has been modified!");
 
+            if (uri != null)
+            {
+                Console.WriteLine(uri.ToString());
+            }
+
+            Console.WriteLine(newUri.ToString());
             HttpResponseMessage response = await _client.GetAsync(newUri).ConfigureAwait(false);
 
             Console.WriteLine("GET response code " + response.StatusCode);
