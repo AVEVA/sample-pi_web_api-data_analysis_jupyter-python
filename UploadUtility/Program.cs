@@ -7,12 +7,12 @@ using Newtonsoft.Json.Linq;
 
 namespace UploadUtility
 {
-    public class Program
+    public static class Program
     {
-        private static readonly string _defaultConfigFile = "test_config.json";
-        private static readonly string _defaultDatabaseFile = "Building Example.xml";
-        private static readonly string _defaultTagDefinitionFile = "tagdefinition.csv";
-        private static readonly string _defaultPIDataFile = "pidata.csv";
+        private const string DefaultConfigFile = "test_config.json";
+        private const string DefaultDatabaseFile = "Building Example.xml";
+        private const string DefaultTagDefinitionFile = "tagdefinition.csv";
+        private const string DefaultPIDataFile = "pidata.csv";
 
         private static JObject _config;
         private static PIWebAPIClient _client;
@@ -22,29 +22,32 @@ namespace UploadUtility
             /*Use the default values provided at the beginning of this class (which work when running from Visual Studio) 
                 or use the values provided by command line arguments*/
 
-            string configFile = _defaultConfigFile;
-            string databaseFile = _defaultDatabaseFile;
-            string tagDefinitionFile = _defaultTagDefinitionFile;
-            string piDataFile = _defaultPIDataFile;
+            string configFile = DefaultConfigFile;
+            string databaseFile = DefaultDatabaseFile;
+            string tagDefinitionFile = DefaultTagDefinitionFile;
+            string piDataFile = DefaultPIDataFile;
 
-            if (args.Length >= 1)
+            if (args != null)
             {
-                databaseFile = args[0];
-            }
+                if (args.Length >= 1)
+                {
+                    databaseFile = args[0];
+                }
 
-            if (args.Length >= 2)
-            {
-                tagDefinitionFile = args[1];
-            }
+                if (args.Length >= 2)
+                {
+                    tagDefinitionFile = args[1];
+                }
 
-            if (args.Length >= 3)
-            {
-                piDataFile = args[2];
-            }
+                if (args.Length >= 3)
+                {
+                    piDataFile = args[2];
+                }
 
-            if (args.Length >= 4)
-            {
-                configFile = args[3];
+                if (args.Length >= 4)
+                {
+                    configFile = args[3];
+                }
             }
 
             _config = JObject.Parse(File.ReadAllText(configFile));
@@ -81,18 +84,9 @@ namespace UploadUtility
         {
             string query = $"{resource}?path={path}";
 
-            try
-            {
-                JObject response = _client.GetRequest(query);
+            JObject response = _client.GetRequest(query);
                      
-                return response["WebId"].ToString();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.InnerException.Message);
-            }
-
-            return null;
+            return response["WebId"].ToString();
         }
 
         private static void CreateDatabase(XmlDocument doc, string assetserver)
@@ -112,27 +106,13 @@ namespace UploadUtility
 
             string request_body = JsonConvert.SerializeObject(payload);
 
-            try
-            {
-                _client.PostRequest(createDBQuery, request_body);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.InnerException.Message);
-            }
+            _client.PostRequest(createDBQuery, request_body);
 
             string databasePath = $"{serverPath}\\{databaseName}";
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
             string importQuery = $"assetdatabases/{databaseWebID}/import";
 
-            try
-            {
-                _client.PostRequest(importQuery, doc.InnerXml.ToString(), true);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.InnerException.Message);
-            }
+            _client.PostRequest(importQuery, doc.InnerXml.ToString(), true);
         }
 
         private static void CreatePIPoint(string dataserver, string tagDefinitionLocation)
@@ -160,14 +140,7 @@ namespace UploadUtility
 
                 string request_body = JsonConvert.SerializeObject(payload);
 
-                try
-                {
-                    _client.PostRequest(createPIPointQuery, request_body);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.InnerException.Message);
-                }
+                _client.PostRequest(createPIPointQuery, request_body);
             }
         }
 
@@ -178,14 +151,7 @@ namespace UploadUtility
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
 
             string deleteQuery = $"assetdatabases/{databaseWebID}";
-            try
-            {
-                _client.DeleteRequest(deleteQuery);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.InnerException.Message);
-            }
+            _client.DeleteRequest(deleteQuery);
         }
 
         private static bool DoesDatabaseExist(string assetserver)
@@ -201,14 +167,12 @@ namespace UploadUtility
             }
             catch (Exception e)
             {
-                if (e.InnerException.Message.Contains("404"))
+                if (e.InnerException?.Message != null && e.InnerException.Message.Contains("404"))
                 {
                     return false;
                 }
-                else
-                {
-                    Console.WriteLine(e.InnerException.Message);
-                }
+
+                throw;
             }
 
             return true;
@@ -227,14 +191,12 @@ namespace UploadUtility
             }
             catch (Exception e)
             {
-                if (e.InnerException.Message.Contains("404"))
+                if (e.InnerException?.Message != null && e.InnerException.Message.Contains("404"))
                 {
                     return false;
                 }
-                else
-                {
-                    Console.WriteLine(e.InnerException.Message);
-                }
+
+                throw;
             }
 
             return true;
@@ -281,15 +243,7 @@ namespace UploadUtility
                 };
 
                 string request_body = "[" + JsonConvert.SerializeObject(payload) + "]";
-
-                try
-                {
-                    _client.PostRequest(updateValueQuery, request_body);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.InnerException.Message);
-                }
+                _client.PostRequest(updateValueQuery, request_body);
             }
         }
     }
