@@ -1,5 +1,10 @@
 # Version History
 
+## 1.0.19 / 2021-08-10
+
+- Updated dependencies
+- Cleaned up gitignore
+
 ## 1.0.18 / 2021-07-29
 
 - Updated UploadUtility to follow latest code style ruleset
