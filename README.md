@@ -47,6 +47,7 @@ All this data is available as part of `Building Data.xml`. There is a helpful ut
   "Resource": "PLACEHOLDER_REPLACE_WITH_PI_WEB_API_URL",
   "DataArchiveName": "PLACEHOLDER_REPLACE_WITH_DATA_ARCHIVE_NAME",
   "AFServerName": "PLACEHOLDER_REPLACE_WITH_AF_SERVER_NAME",
+  "AFDatabaseName": "REPLACE_WITH_AF_DATABASE_NAME",
   "Username": "PLACEHOLDER_REPLACE_WITH_USERNAME",
   "Password": "PLACEHOLDER_REPLACE_WITH_PASSWORD",
   "AuthType": "basic",
@@ -59,6 +60,7 @@ All this data is available as part of `Building Data.xml`. There is a helpful ut
 | Resource        | required | string         | The URL of the PI Web API                                                                                                                                    |
 | DataArchiveName | required | string         | The name of the PI Data Archive that is being sent to                                                                                                        |
 | AFServerName    | required | string         | The name of the AF server that is being sent to                                                                                                              |
+| AFServerName    | required | string         | The name of the AF database that is being sent to                                                                                                            |
 | Username        | required | string         | The username that is being used for authenticating to the PI Web API                                                                                         |
 | Password        | required | string         | The password that is being used for authenticating to the PI Web API                                                                                         |
 | AuthType        | optional | string         | The type of authentication to use when connecting to the PI Web API. By default this is set to "basic"                                                       |
