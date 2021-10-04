@@ -9,7 +9,7 @@ namespace UploadUtility
 {
     public static class Program
     {
-        private const string DefaultConfigFile = "test_config.json";
+        private const string DefaultConfigFile = "appsettings.json";
         private const string DefaultDatabaseFile = "Building Example.xml";
         private const string DefaultTagDefinitionFile = "tagdefinition.csv";
         private const string DefaultPIDataFile = "pidata.csv";
