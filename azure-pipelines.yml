@@ -111,7 +111,7 @@ jobs:
     steps:
       - template: '/miscellaneous/build_templates/appsettings.yml@templates'
         parameters:
-          secrets: 'PIWebAPI, DataArchiveName, AFServerName, Username, Password'
+          secrets: 'PIWebAPI, DataArchiveName, AFServerName, AFDatabaseName, Username, Password'
 
       - script: |
           echo Install pip
