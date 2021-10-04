@@ -56,8 +56,8 @@ namespace UploadUtility
                 _config["Username"].ToString(),
                 _config["Password"].ToString());
 
-            string dataserver = _config["DataServerName"].ToString();
-            string assetserver = _config["AssetServerName"].ToString();
+            string dataserver = _config["DataArchiveName"].ToString();
+            string assetserver = _config["AFServerName"].ToString();
 
             // Delete existing AF Database if it exists
             if (DoesDatabaseExist(assetserver))
