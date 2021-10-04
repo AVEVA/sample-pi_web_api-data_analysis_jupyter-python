@@ -146,7 +146,7 @@ namespace UploadUtility
 
         private static void DeleteExistingDatabase(string assetserver)
         {
-            string databaseName = _config["AssetDatabaseName"].ToString();
+            string databaseName = _config["AFDatabaseName"].ToString();
             string databasePath = $"\\\\{assetserver}\\{databaseName}";
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
 
