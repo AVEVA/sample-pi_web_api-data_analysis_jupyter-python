@@ -1,6 +1,6 @@
 # PI Web API Data Analysis Sample
 
-**Version:** 1.0.20
+**Version:** 1.0.21
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/PI-System/osisoft.sample-pi_web_api-data_analysis_jupyter-python?repoName=osisoft%2Fsample-pi_web_api-data_analysis_jupyter-python&branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=3088&repoName=osisoft%2Fsample-pi_web_api-data_analysis_jupyter-python&branchName=main)
 
@@ -38,17 +38,17 @@ All this data is available as part of `Building Data.xml`. There is a helpful ut
 
 ### Setting up the AF database and the PI Data Archive
 
-- The sample test is configured using the file [test_config.placeholder.json](test_config.placeholder.json). Before editing, rename this file to `test_config.json`. This repository's `.gitignore` rules should prevent the file from ever being checked in to any fork or branch, to ensure credentials are not compromised.
-- In the `Data_Analysis` folder, populate the values of `test_config.json` with your own system configuration.
+- The sample test is configured using the file [appsettings.placeholder.json](appsettings.placeholder.json). Before editing, rename this file to `appsettings.json`. This repository's `.gitignore` rules should prevent the file from ever being checked in to any fork or branch, to ensure credentials are not compromised.
+- In the `Data_Analysis` folder, populate the values of `appsettings.json` with your own system configuration.
   For example:
 
 ```json
 {
-  "Resource": "REPLACE_WITH_PI_WEB_API_URL",
-  "DataServerName": "REPLACE_WITH_DATA_ARCHIVE_NAME",
-  "AssetServerName": "REPLACE_WITH_ASSET_FRAMEWORK_SERVER_NAME",
-  "Username": "REPLACE_WITH_USERNAME",
-  "Password": "REPLACE_WITH_PASSWORD",
+  "Resource": "PLACEHOLDER_REPLACE_WITH_PI_WEB_API_URL",
+  "DataArchiveName": "PLACEHOLDER_REPLACE_WITH_DATA_ARCHIVE_NAME",
+  "AFServerName": "PLACEHOLDER_REPLACE_WITH_AF_SERVER_NAME",
+  "Username": "PLACEHOLDER_REPLACE_WITH_USERNAME",
+  "Password": "PLACEHOLDER_REPLACE_WITH_PASSWORD",
   "AuthType": "basic",
   "VerifySSL": true
 }
@@ -57,8 +57,8 @@ All this data is available as part of `Building Data.xml`. There is a helpful ut
 | Parameters      | Required | Type           | Description                                                                                                                                                  |
 | --------------- | -------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Resource        | required | string         | The URL of the PI Web API                                                                                                                                    |
-| DataServerName  | required | string         | The name of the PI Data Archive that is being sent to                                                                                                        |
-| AssetServerName | required | string         | The name of the AF server that is being sent to                                                                                                              |
+| DataArchiveName | required | string         | The name of the PI Data Archive that is being sent to                                                                                                        |
+| AFServerName    | required | string         | The name of the AF server that is being sent to                                                                                                              |
 | Username        | required | string         | The username that is being used for authenticating to the PI Web API                                                                                         |
 | Password        | required | string         | The password that is being used for authenticating to the PI Web API                                                                                         |
 | AuthType        | optional | string         | The type of authentication to use when connecting to the PI Web API. By default this is set to "basic"                                                       |
