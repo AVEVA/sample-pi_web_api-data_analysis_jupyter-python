@@ -576,4 +576,5 @@ $RECYCLE.BIN/
 
 # Credential Config Files
 test_config.json
+appsettings.json
 product-readiness.*
