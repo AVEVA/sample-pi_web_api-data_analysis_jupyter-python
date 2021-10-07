@@ -26,10 +26,6 @@ resources:
 
 variables:
   - template: '/miscellaneous/build_templates/variables.yml@templates'
-  - name: CredFile
-    value: test_config.json
-  - name: CredFileLibrary
-    value: product-readiness.piwebapi_python.json
   - name: analysisProject
     value: PIWebAPI_Data_Analysis
 
@@ -38,11 +34,15 @@ jobs:
     pool:
       name: 00-OSIManaged-Test
       demands: COMPUTERNAME -equals $(buildAgent)
+    variables:
+      - name: Resource
+        value: $(PIWebAPI)
+      - name: VerifySSL
+        value: false
     steps:
-      - template: '/miscellaneous/build_templates/config.yml@templates'
+      - template: '/miscellaneous/build_templates/appsettings.yml@templates'
         parameters:
-          fileOriginal: $(CredFile)
-          fileLibrary: $(CredFileLibrary)
+          secrets: 'PIWebAPI, DataArchiveName, AFServerName, AFDatabaseName, Username, Password'
 
       - task: DotNetCoreCLI@2
         displayName: Restore
@@ -77,7 +77,7 @@ jobs:
         displayName: Run UploadUtility
         inputs:
           targetType: 'inline'
-          script: '&"$(Build.BinariesDirectory)/UploadUtility.exe" "$(Build.SourcesDirectory)/UploadUtility/Building Example.xml" "$(Build.SourcesDirectory)/UploadUtility/tagdefinition.csv" "$(Build.SourcesDirectory)/UploadUtility/pidata.csv" "$(Build.SourcesDirectory)/test_config.json"'
+          script: '&"$(Build.BinariesDirectory)/UploadUtility.exe" "$(Build.SourcesDirectory)/UploadUtility/Building Example.xml" "$(Build.SourcesDirectory)/UploadUtility/tagdefinition.csv" "$(Build.SourcesDirectory)/UploadUtility/pidata.csv" "$(Build.SourcesDirectory)/appsettings.json"'
 
   - job: Analysis_BulkUploadUtility
     pool:
@@ -103,11 +103,15 @@ jobs:
       name: 00-OSIManaged-Test
       demands: COMPUTERNAME -equals $(buildAgent)
     dependsOn: BuildUploadUtility
+    variables:
+      - name: Resource
+        value: $(PIWebAPI)
+      - name: VerifySSL
+        value: false
     steps:
-      - template: '/miscellaneous/build_templates/config.yml@templates'
+      - template: '/miscellaneous/build_templates/appsettings.yml@templates'
         parameters:
-          fileOriginal: $(CredFile)
-          fileLibrary: $(CredFileLibrary)
+          secrets: 'PIWebAPI, DataArchiveName, AFServerName, AFDatabaseName, Username, Password'
 
       - script: |
           echo Install pip

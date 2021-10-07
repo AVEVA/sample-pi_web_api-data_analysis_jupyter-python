@@ -9,7 +9,7 @@ namespace UploadUtility
 {
     public static class Program
     {
-        private const string DefaultConfigFile = "test_config.json";
+        private const string DefaultConfigFile = "appsettings.json";
         private const string DefaultDatabaseFile = "Building Example.xml";
         private const string DefaultTagDefinitionFile = "tagdefinition.csv";
         private const string DefaultPIDataFile = "pidata.csv";
@@ -56,8 +56,8 @@ namespace UploadUtility
                 _config["Username"].ToString(),
                 _config["Password"].ToString());
 
-            string dataserver = _config["DataServerName"].ToString();
-            string assetserver = _config["AssetServerName"].ToString();
+            string dataserver = _config["DataArchiveName"].ToString();
+            string assetserver = _config["AFServerName"].ToString();
 
             // Delete existing AF Database if it exists
             if (DoesDatabaseExist(assetserver))
@@ -96,7 +96,7 @@ namespace UploadUtility
 
             string createDBQuery = $"assetservers/{assetserverWebID}/assetdatabases";
 
-            string databaseName = _config["AssetDatabaseName"].ToString();
+            string databaseName = _config["AFDatabaseName"].ToString();
 
             object payload = new
             {
@@ -146,7 +146,7 @@ namespace UploadUtility
 
         private static void DeleteExistingDatabase(string assetserver)
         {
-            string databaseName = _config["AssetDatabaseName"].ToString();
+            string databaseName = _config["AFDatabaseName"].ToString();
             string databasePath = $"\\\\{assetserver}\\{databaseName}";
             string databaseWebID = GetWebIDByPath(databasePath, "assetdatabases");
 
@@ -156,7 +156,7 @@ namespace UploadUtility
 
         private static bool DoesDatabaseExist(string assetserver)
         {
-            string databaseName = _config["AssetDatabaseName"].ToString();
+            string databaseName = _config["AFDatabaseName"].ToString();
             string databasePath = $"\\\\{assetserver}\\{databaseName}";
 
             string getDatabaseQuery = $"assetdatabases/?path={databasePath}";
