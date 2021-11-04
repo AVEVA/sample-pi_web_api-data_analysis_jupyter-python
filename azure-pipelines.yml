@@ -121,6 +121,7 @@ jobs:
           call pip install requests_kerberos
           call pip install unittest
           call pip install unittest-xml-reporting
+          call pip install pytest
           echo Install requirements
           call pip install -r requirements.txt
           echo Run tests
