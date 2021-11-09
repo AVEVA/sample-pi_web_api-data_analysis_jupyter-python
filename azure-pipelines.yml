@@ -32,8 +32,8 @@ variables:
 jobs:
   - job: BuildUploadUtility
     pool:
-      name: 00-OSIManaged-Test
-      demands: COMPUTERNAME -equals $(buildAgent)
+      name: 00-OSIManaged-Containers
+      demands: Agent.OS -equals Windows_NT
     variables:
       - name: Resource
         value: $(PIWebAPI)
@@ -100,8 +100,8 @@ jobs:
 
   - job: Tests
     pool:
-      name: 00-OSIManaged-Test
-      demands: COMPUTERNAME -equals $(buildAgent)
+      name: 00-OSIManaged-Containers
+      demands: Agent.OS -equals Windows_NT
     dependsOn: BuildUploadUtility
     variables:
       - name: Resource
@@ -121,6 +121,7 @@ jobs:
           call pip install requests_kerberos
           call pip install unittest
           call pip install unittest-xml-reporting
+          call pip install pytest
           echo Install requirements
           call pip install -r requirements.txt
           echo Run tests
