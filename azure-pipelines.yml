@@ -19,6 +19,10 @@ schedules:
 
 resources:
   repositories:
+    - repository: OpsGuildAutomationRepo
+      type: git
+      name: Engineering/OpsGuild.Automation
+      ref: refs/heads/main
     - repository: templates
       type: github
       name: osisoft/OSI-Samples
@@ -139,16 +143,11 @@ jobs:
         displayName: 'Publish test results'
         condition: always()
 
-  - job: Analysis
-    pool:
-      name: 00-OSIManaged-Containers
-      demands: Agent.OS -equals Windows_NT
-    steps:
-      - script: |
-          pip install nbconvert
-          jupyter nbconvert --to script Notebook.ipynb
-
-      - template: '/miscellaneous/build_templates/analysis.yml@templates'
-        parameters:
-          skipPolaris: true
-          useRequirementsTxt: true
+  - template: '/miscellaneous/build_templates/code-analysis.yml@templates'
+    parameters:
+      buildSteps:
+        - script: |
+            pip install nbconvert
+            jupyter nbconvert --to script Notebook.ipynb
+      skipPolaris: true
+      useRequirementsTxt: true
