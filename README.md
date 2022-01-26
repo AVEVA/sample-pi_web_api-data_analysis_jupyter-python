@@ -2,7 +2,7 @@
 
 **Version:** 1.0.25
 
-[![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/PI-System/osisoft.sample-pi_web_api-data_analysis_jupyter-python?repoName=osisoft%2Fsample-pi_web_api-data_analysis_jupyter-python&branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=3088&repoName=osisoft%2Fsample-pi_web_api-data_analysis_jupyter-python&branchName=main)
+[![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/PI-System/aveva.sample-pi_web_api-data_analysis_jupyter-python?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=3088&branchName=main)
 
 The sample code in this folder demonstrates how to utilize the PI Web API to do some basic data analysis using Python Jupyter Notebook. In order to run this sample, you need to have [Python](https://www.python.org/downloads/) installed.
 
@@ -10,7 +10,7 @@ The sample code in this folder demonstrates how to utilize the PI Web API to do 
 
 ### Background
 
-San Leandro Technical Campus (SLTC) is OSIsoft's headquarters in San Leandro, California. Like every office building, SLTC needs temperature control systems to maintain a comfortable working environment. Now, consider a normal working day: The building starts getting occupied at around 7 AM. The building management system has to turn on the systems beforehand in order to reach a set temperature (say 70 deg F) by 7 AM. So let's say they have the control systems set to turn on at around 5 AM.
+San Leandro Technical Campus (SLTC) is an AVEVA office in San Leandro, California. Like every office building, SLTC needs temperature control systems to maintain a comfortable working environment. Now, consider a normal working day: The building starts getting occupied at around 7 AM. The building management system has to turn on the systems beforehand in order to reach a set temperature (say 70 deg F) by 7 AM. So let's say they have the control systems set to turn on at around 5 AM.
 
 The problem here is that these control systems are not identical. They all have different cooling rates so all of them don't take exactly 2 hours to reach the set point. Suppose one of them (Unit A) might reach the set point of 70 deg F by 6 AM. Unit A is now running for an extra hour in order to maintain the temperature of the office when there is nobody in the office. Our motivation here is to minimize this extra time so that we can save our costs and save some wasted energy as well.
 
@@ -90,4 +90,4 @@ For the main PI Web API Samples landing page [ReadMe](https://github.com/osisoft
 
 For the main PI System Samples landing page [ReadMe](https://github.com/osisoft/OSI-Samples-PI-System)
 
-For the main OSIsoft Samples landing page [ReadMe](https://github.com/osisoft/OSI-Samples)
+For the main AVEVA Samples landing page [ReadMe](https://github.com/osisoft/OSI-Samples)
