@@ -183,7 +183,7 @@ visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public
 
 
 ###########################################
-# OSIsoft Code Style Rules                #
+# AVEVA Code Style Rules                #
 # NOTE: Requires **VS2019 16.3** or later #
 ###########################################
 [*.{cs,vb}]
@@ -557,7 +557,7 @@ dotnet_diagnostic.SX1309S.severity = error
 
 
 ###########################################
-# OSIsoft Code Analysis Rules             #
+# AVEVA Code Analysis Rules             #
 # NOTE: Requires **VS2019 16.3** or later #
 ###########################################
 # CA1000: Do not declare static members on generic types
@@ -1057,7 +1057,7 @@ dotnet_diagnostic.IL3001.severity = error
 ####################################################################
 # Team-specific Rules, Extensions, and Overrides
 # Description:
-#   Rules from the common OSIsoft rules may be overridden here.
+#   Rules from the common AVEVA rules may be overridden here.
 #   Extensions to enable additional rules is always acceptable.
 #   Overrides do disable a rule are by exception only and should
 #   include one of the following:
