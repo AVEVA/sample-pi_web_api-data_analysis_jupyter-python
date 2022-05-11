@@ -83,25 +83,6 @@ jobs:
           targetType: 'inline'
           script: '&"$(Build.BinariesDirectory)/UploadUtility.exe" "$(Build.SourcesDirectory)/UploadUtility/Building Example.xml" "$(Build.SourcesDirectory)/UploadUtility/tagdefinition.csv" "$(Build.SourcesDirectory)/UploadUtility/pidata.csv" "$(Build.SourcesDirectory)/appsettings.json"'
 
-  - job: Analysis_BulkUploadUtility
-    pool:
-      name: 00-OSIManaged-Containers
-      demands: Agent.OS -equals Windows_NT
-    variables:
-      analysisProject: PIWebAPI_Data_Analysis_Upload
-    steps:
-      - task: DotNetCoreCLI@2
-        displayName: 'Build'
-        inputs:
-          command: build
-          projects: '**/UploadUtility.csproj'
-
-      - template: '/miscellaneous/build_templates/binskim.yml@templates'
-
-      - template: '/miscellaneous/build_templates/analysis.yml@templates'
-        parameters:
-          projectPath: '/UploadUtility'
-
   - job: Tests
     pool:
       name: 00-OSIManaged-Containers
