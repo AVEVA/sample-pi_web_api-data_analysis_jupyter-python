@@ -35,6 +35,7 @@ variables:
 
 jobs:
   - job: BuildUploadUtility
+    condition: ne(variables['Build.Reason'], 'Schedule')
     pool:
       name: 00-OSIManaged-Containers
       demands: Agent.OS -equals Windows_NT
@@ -84,6 +85,7 @@ jobs:
           script: '&"$(Build.BinariesDirectory)/UploadUtility.exe" "$(Build.SourcesDirectory)/UploadUtility/Building Example.xml" "$(Build.SourcesDirectory)/UploadUtility/tagdefinition.csv" "$(Build.SourcesDirectory)/UploadUtility/pidata.csv" "$(Build.SourcesDirectory)/appsettings.json"'
 
   - job: Tests
+    condition: ne(variables['Build.Reason'], 'Schedule')
     pool:
       name: 00-OSIManaged-Containers
       demands: Agent.OS -equals Windows_NT
