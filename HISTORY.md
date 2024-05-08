@@ -1,5 +1,11 @@
 # Version History
 
+## ARCHIVED / 2024-05-08
+
+## 1.0.32 / 2023-10-13
+
+- Migrate Pipelines
+
 ## 1.0.32 / 2023-10-13
 
 - Migrate Pipelines
