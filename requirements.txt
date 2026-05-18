@@ -1,6 +1,6 @@
 jupyter>=1.0.0
 pandas>=1.4.2
-numpy>=1.22.4
+numpy>=2.4.5
 urllib3>=1.26.9
 matplotlib>=3.5.2
 scikit-learn>=1.1.1
